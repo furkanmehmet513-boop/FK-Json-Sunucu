@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>FK Dosya Köprüsü</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header with theme toggle -->
+    <header class="app-header">
+      <h1><i class="fas fa-bridge" aria-hidden="true"></i> FK Dosya Köprüsü</h1>
+      <button id="themeToggle" class="theme-toggle" aria-label="Tema değiştir">
+        <i class="fas fa-moon"></i>
+        <span>Koyu Tema</span>
+      </button>
+    </header>
+
+    <!-- Main content area -->
+    <main>
+      <!-- UPLOAD VIEW (default) -->
+      <section id="uploadSection" class="view-section">
+        <div class="card upload-card">
+          <div 
+            id="dropZone" 
+            class="drop-zone" 
+            tabindex="0" 
+            role="button" 
+            aria-label="Dosya seçmek için tıklayın veya sürükleyip bırakın"
+          >
+            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+            <p class="drop-text">Dosya seçmek için tıklayın<br>veya sürükleyip bırakın</p>
+            <input type="file" id="fileInput" class="hidden-file-input" aria-hidden="true">
+          </div>
+
+          <!-- Selected file info -->
+          <div id="fileInfo" class="file-info hidden">
+            <div class="file-details">
+              <i class="fas fa-file"></i>
+              <span id="fileName"></span>
+              <span id="fileSize" class="file-size"></span>
+            </div>
+            <button id="clearFileBtn" class="icon-btn" aria-label="Dosyayı kaldır">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+
+          <!-- Upload button & status -->
+          <button id="uploadBtn" class="btn primary-btn" disabled>
+            <i class="fas fa-upload"></i> Yükle
+          </button>
+          <div id="uploadStatus" class="status-message" aria-live="polite"></div>
+
+          <!-- Result area (link & copy) -->
+          <div id="resultArea" class="result-area hidden">
+            <div class="success-badge">
+              <i class="fas fa-check-circle"></i>
+              <span>Yükleme başarılı! Kod: <strong id="fileCode"></strong></span>
+            </div>
+            <div class="link-box">
+              <input type="text" id="downloadLinkInput" class="link-input" readonly aria-label="İndirme bağlantısı">
+              <button id="copyLinkBtn" class="btn secondary-btn" aria-label="Bağlantıyı kopyala">
+                <i class="fas fa-copy"></i> Kopyala
+              </button>
+            </div>
+            <p id="copyFeedback" class="copy-feedback" aria-live="polite"></p>
+          </div>
+        </div>
+        <p class="hint">Tüm dosya türleri desteklenir. Dosyalar geçici olarak saklanır.</p>
+      </section>
+
+      <!-- DOWNLOAD VIEW (shown when ?code=... present) -->
+      <section id="downloadSection" class="view-section hidden">
+        <div class="card download-card">
+          <div class="download-header">
+            <i class="fas fa-download download-icon"></i>
+            <h2>Dosya İndirme</h2>
+          </div>
+          <p class="code-display">Kod: <strong id="displayCode"></strong></p>
+          <button id="downloadFileBtn" class="btn primary-btn">
+            <i class="fas fa-download"></i> Dosyayı İndir
+          </button>
+          <div id="downloadStatus" class="status-message" aria-live="polite"></div>
+          <button id="newUploadBtn" class="btn text-btn">
+            <i class="fas fa-arrow-left"></i> Yeni Dosya Yükle
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>🔒 Dosyalar sunucuda geçici olarak tutulur. Bağlantıyı kaybetmeyin.</p>
+    </footer>
+  </div>
+
+  <!-- Application logic -->
+  <script src="app.js"></script>
+</body>
+</html>
